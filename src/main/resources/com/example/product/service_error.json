@@ -4,24 +4,24 @@
   "description": "basic error response schema",
   "doc": "This Type of Response is expected when executing a request failed in a predictable manner.",
   "type": "object",
-  "required": [ "message" ],
-  "definitions": {
-    "FormattingServiceError": {
-      "properties": {
-        "message": {
-          "description": "short error message, suitable for display",
-          "type": "string"
-        },
-        "details": {
-          "description": "detailed error description, not suitable for end users",
-          "type": "string"
-        },
-        "timestamp": {
-          "description": "a logical timestamp at which the error was detected",
-          "type": "string",
-          "format": "date-time"
-        }
-      }
+  "required": [
+    "message",
+    "details",
+    "timestamp"
+  ],
+  "properties": {
+    "message": {
+      "description": "short error message, suitable for display",
+      "type": "string"
+    },
+    "details": {
+      "description": "detailed error description, not suitable for end users",
+      "type": "string"
+    },
+    "timestamp": {
+      "description": "a logical timestamp at which the error was detected",
+      "type": "string",
+      "format": "date-time"
     }
   }
 }

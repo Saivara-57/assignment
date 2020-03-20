@@ -2,7 +2,8 @@ package com.example.product.service;
 
 import com.example.product.constants.ProductConstant;
 import com.example.product.entity.ProductEntity;
-import com.example.product.exception.RecordNotFoundException;
+import com.example.product.exception.ProductCatalogException;
+import com.example.product.exception.ProductNotFoundException;
 import com.example.product.model.ProductRequest;
 import com.example.product.model.ProductResponse;
 import com.example.product.repository.ProductPaginationRepository;
@@ -34,17 +35,7 @@ public class ProductService {
         if (productList.size() > 0) {
             return convertToProducts(productList);
         } else {
-            return new ArrayList<ProductResponse>();
-        }
-    }
-
-    public ProductResponse getProductById(String id) throws RecordNotFoundException {
-        Optional<ProductEntity> product = repository.findById(id);
-
-        if (product.isPresent()) {
-            return convertToProduct(product.get());
-        } else {
-            throw new RecordNotFoundException("No product record exist for given id");
+            throw new ProductNotFoundException("No product record exist (zero product)");
         }
     }
 
@@ -53,12 +44,21 @@ public class ProductService {
                 PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, ProductConstant.CREATED_AT)));
         if (products != null && !products.isEmpty()) {
             return convertToProducts(products.getContent());
+        } else {
+            throw new ProductNotFoundException("No product record exist for given category");
         }
-        return new ArrayList<>();
     }
 
+
+    /**
+     * Svae/update the product into database
+     */
     public ProductResponse createOrUpdateProduct(ProductRequest product) {
-        return convertToProduct(repository.save(convertToEntity(product)));
+        ProductEntity productEntity = repository.save(convertToEntity(product));
+        if (productEntity == null) {
+            throw new ProductCatalogException("Error in  storing the product in to Database");
+        }
+        return convertToProduct(productEntity);
 
     }
 
@@ -66,6 +66,9 @@ public class ProductService {
         return productList.stream().map(a -> convertToProduct(a)).collect(Collectors.toList());
     }
 
+    /**
+     * Instead of exposing entity to end users, rather using the custom response so conversion is required
+     */
     private ProductResponse convertToProduct(ProductEntity productEntity) {
         if (productEntity == null) {
             return null;
@@ -82,6 +85,10 @@ public class ProductService {
 
     }
 
+
+    /**
+     * This function converts the custom object to ProductEntity object
+     */
     private ProductEntity convertToEntity(ProductRequest product) {
         if (product == null) {
             return null;

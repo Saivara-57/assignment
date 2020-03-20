@@ -16,10 +16,6 @@ public class AppConfig {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        /*mapper.registerModule(new ParameterNamesModule())
-              .registerModule(new Jdk8Module())
-              .registerModule(new JavaTimeModule());*/
-
         return mapper;
     }
 
