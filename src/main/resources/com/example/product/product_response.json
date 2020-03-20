@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "The object contains response attributes required to create product ",
+  "title": "SaveProductResponse",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "brand",
+    "tags",
+    "category",
+    "created_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": {
+        "id": "b6afac37-cf9a-4fd4-8257-f096dbb5d34d"
+      }
+    },
+    "name": {
+      "description": "Name or identifier of the product needs to be saved",
+      "type": "string",
+      "example": {
+        "name": "Red Shirt"
+      }
+    },
+    "description": {
+      "description": "Description of the product",
+      "type": "string",
+      "example": {
+        "description": "Red hugo boss shirt"
+      }
+    },
+    "brand": {
+      "description": "Product brand",
+      "type": "string",
+      "example": {
+        "brand": "Hugo Boss"
+      }
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "category": {
+      "description": "Product category ",
+      "type": "string",
+      "example": {
+        "category": "apparel"
+      }
+    },
+    "created_at": {
+      "description": "product saved date and time",
+      "type": "string",
+      "example": {
+        "created_at": "2017-04-15T01:02:03Z"
+      }
+    }
+  }
+}

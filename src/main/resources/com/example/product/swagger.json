@@ -1,0 +1,192 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Product Catalog Service",
+    "version": "1.0.0",
+    "description": "Product services for adding and searching products int product catalog.",
+    "contact": {
+      "name": "SV Prasad Veerla"
+    },
+    "license": {
+      "name": "Commercial"
+    }
+  },
+  "basePath": "/v1/products",
+  "produces": [
+    "application/json"
+  ],
+  "responses": {
+    "x-comment": "these are the common response types. Its easier to keep this section in each service.",
+    "ServiceError": {
+      "description": "general service error",
+      "schema": {
+        "$ref": "./service_error.json"
+      }
+    }
+  },
+  "paths": {
+    "/product/": {
+      "post": {
+        "operationId": "saveProduct",
+        "summary": "Saves product to catalog",
+        "description": "This API saves product with different kind of category into product catalog",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "products",
+            "in": "body",
+            "description": "Contains product details that needs to be saved",
+            "required": "true",
+            "schema": {
+              "$ref": "./product_request.json",
+              "example": {
+                "name": "Red Shirt",
+                "description": "Red hugo boss shirt",
+                "brand": "Hugo Boss",
+                "tags": [
+                  "red",
+                  "shirt",
+                  "slim fit"
+                ],
+                "category": "apparel"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully processed the request",
+            "schema": {
+              "$ref": "./product_response.json"
+            }
+          },
+          "400": {
+            "description": "Missing mandatory parameters or invalid request that could not be processed.",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "500": {
+            "description": "Could not process the request due to Internal server errors",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "502": {
+            "description": "Could not access the database or server resources to process the request",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "default": {
+            "description": "Not yet Implemented"
+          }
+        }
+      }
+    },
+    "/search/{category}": {
+      "get": {
+        "operationId": "getSearchByCategoty",
+        "summary": "This API retrieves all the products  based on given category",
+        "description": "",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "description": "Search is based on the category and if category mataches data will be retrieved",
+            "required": "true"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "type": "integer",
+            "description": "An integer number which indicates the page for which data will be retrieved",
+            "required": true
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "integer",
+            "description": "Total number of products to display in a page",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully processed the request",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./product_response.json"
+              }
+            }
+          },
+          "400": {
+            "description": "Missing mandatory parameters or invalid request that could not be processed.",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "500": {
+            "description": "Could not process the request due to Internal server errors",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "502": {
+            "description": "Could not access the database or server resources to process the request",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "default": {
+            "description": "Not yet Implemented"
+          }
+        }
+      }
+    },
+    "/list": {
+      "get": {
+        "operationId": "getAllProducts",
+        "summary": "This API retrieves all the products ",
+        "description": "",
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully processed the request",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./product_response.json"
+              }
+            }
+          },
+          "400": {
+            "description": "Missing mandatory parameters or invalid request that could not be processed.",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "500": {
+            "description": "Could not process the request due to Internal server errors",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "502": {
+            "description": "Could not access the database or server resources to process the request",
+            "schema": {
+              "$ref": "./service_error.json"
+            }
+          },
+          "default": {
+            "description": "Not yet Implemented"
+          }
+        }
+      }
+    }
+  }
+}

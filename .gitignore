@@ -1,0 +1,7 @@
+# Auto-generated
+.project
+.classpath
+.settings/
+target/
+.idea/
+product_catalog.iml

@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "The object contains request attributes required to create product ",
+  "title": "SaveProductRequest",
+  "type": "object",
+  "required": [
+    "name",
+    "description",
+    "brand",
+    "tags",
+    "category"
+  ],
+  "properties": {
+    "name": {
+      "description": "Name or identifier of the product needs to be saved",
+      "type": "string",
+      "example": {
+        "name": "Red Shirt"
+      }
+    },
+    "description": {
+      "description": "Description of the product",
+      "type": "string",
+      "example": {
+        "description": "Red hugo boss shirt"
+      }
+    },
+    "brand": {
+      "description": "Product brand",
+      "type": "string",
+      "example": {
+        "brand": "Hugo Boss"
+      }
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "category": {
+      "description": "Product category ",
+      "type": "string",
+      "example": {
+        "category": "apparel"
+      }
+    }
+  }
+}
